@@ -1,17 +1,16 @@
 <?php
     require_once "./config/config.inc.php";
-    require_once "./lib/http_code.lib.php";
-    require_once "./lib/util.lib.php";
-    require_once "./lib/xml.lib.php";
-    require_once "./lib/dbhelper.lib.php";
-    require_once "BaeLog.class.php";
+    require_once ROOT_LIBPATH."http_code.lib.php";
+    require_once ROOT_LIBPATH."util.lib.php";
+    require_once ROOT_LIBPATH."xml.lib.php";
+    require_once ROOT_LIBPATH."dbhelper.lib.php";
     
-    $logger = BaeLog::getInstance();
+    global $logger;
     
     $params = $_GET;
     if (Util::check_add_input($params) == false) {
-        //$logger->logFatal("Input error : userid[".$userid."], imei[".$imei."], traffic[".$traffic."], duration[".$duration."].");
-        $logger->logFatal("Input error : ".serialize($params));
+        //$logger->Fatal("Input error : userid[".$userid."], imei[".$imei."], traffic[".$traffic."], duration[".$duration."].");
+        $logger->Fatal("Input error : ".serialize($params));
         http_response($HTTP_CODE['INPUT ERROR']);
     }
     
@@ -31,10 +30,11 @@
     $result = $db_helper->add_data_in_user_account_info($table, $where_fields, $add_data, $set_data);
 
     if ($result === false) {
-        $logger->logFatal("add_data_in_user_account_info failed.");
+        $logger->Fatal("add_data_in_user_account_info failed.");
         http_response($HTTP_CODE['QUERY FAILED']);
-    } else if ($result === null) {
-        $logger->logFatal("add_data_in_user_account_info return empty.");
+    }
+    if ($result === null) {
+        $logger->Fatal("add_data_in_user_account_info return empty.");
         http_response($HTTP_CODE['INPUT ERROR']);
     }
         
