@@ -74,7 +74,10 @@
             }
             //make sure that if type is 'send', and need traffic and duration set
             if ($params['type'] === 0 && (!isset($params['traffic']) || !isset($params['duration']))) {
+            	self::$logger->Debug("Type 0");
             	return false;
+            } else {
+            	self::$logger->Debug("Type 1");
             }
             //traffic and duration check.
             if (isset($params['traffic']) && !Util::check_double($params['traffic'])) {
@@ -88,12 +91,14 @@
         
         public static function compute_account_added($traffic, $duration) {
             //self::$logger->Debug("Compute account added.");
+            
             //return 1.1;
         	if ($traffic < 0.1 && $duration < 0.1) {  //'receive'
+        		self::$logger->Debug("receive mode 0");
         		return 1.0;
         	} else {
         		
-        		$res = 2+8*($traffic*10)*($duration*2)/(1024*10*1800*2);
+        		$res = 2+8*($traffic*3)*($duration*5)/(1024*3*1800*5);
         		if ($res > 10.0) {
         			$res = 10.0;
         		}

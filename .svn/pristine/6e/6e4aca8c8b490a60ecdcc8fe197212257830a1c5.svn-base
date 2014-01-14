@@ -57,19 +57,20 @@
         }
         
         public static function check_add_input($params) {
-            //self::$logger->Debug("Check add.php input.");            
+            //self::$logger->Debug("Check add.php input.");
+            
         	// check userid and imei
-            if (!isset($params['userid']) || !isset($params['imei'])) {
+            if (!isset($params['userid']) || !isset($params['imei'])){
             	return false;
             }
-            if (!Util::check_integer($params['userid']) || !Util::check_imei($params['imei'])) {
+            if (!Util::check_integer($params['userid']) || Util::check_imei($params['imei']) == false) {
             	return false;
             }
             //check type
-            if (!isset($params['type']) || !Util::check_integer($params['type'])) {
+            if (!isset($params['type']) || !Util::check_integer($params['type'])){
             	return false;
             }
-            if ((int)$params['type'] < 0 || (int)$params['type'] > 1){
+            if ($params['type'] < 0 || $params['type'] > 1){
             	return false;
             }
             //make sure that if type is 'send', and need traffic and duration set
@@ -88,14 +89,14 @@
         
         public static function compute_account_added($traffic, $duration) {
             //self::$logger->Debug("Compute account added.");
+            
             //return 1.1;
-        	if ($traffic < 0.1 && $duration < 0.1) {  //'receive'
-        		return 1.0;
+        	if ($traffic == -1 && $duration == -1) {  //'receive'
+        		return 1;
         	} else {
-        		
-        		$res = 2+8*($traffic*10)*($duration*2)/(1024*10*1800*2);
-        		if ($res > 10.0) {
-        			$res = 10.0;
+        		$res = 2 + 8 * ($traffic * 3) * ($duration * 5)  / （5120 * 3） * (1800 * 5);
+        		if ($res > 10) {
+        			$res = 10;
         		}
         		return $res;
         	}

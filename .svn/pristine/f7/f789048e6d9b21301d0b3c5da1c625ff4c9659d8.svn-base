@@ -15,9 +15,9 @@
     }
     
     //if type is 'receieve', set 'traffic' and 'duration' to -1
-    if ((int)$params['type'] === 1){
-    	$params['traffic'] = 0;
-    	$params['duration'] = 0;
+    if ($params['type'] === 1){
+    	$params['traffic'] = -0.1;
+    	$params['duration'] = -0.1;
     }
     
     $account_added = Util::compute_account_added($params['traffic'], $params['duration']);

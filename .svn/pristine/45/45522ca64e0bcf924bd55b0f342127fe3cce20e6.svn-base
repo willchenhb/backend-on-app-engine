@@ -16,6 +16,7 @@
     
     //if type is 'receieve', set 'traffic' and 'duration' to -1
     if ((int)$params['type'] === 1){
+    	$logger->Debug("Type 1");
     	$params['traffic'] = 0;
     	$params['duration'] = 0;
     }
