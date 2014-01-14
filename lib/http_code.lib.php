@@ -46,4 +46,3 @@
         return $buffer;
     }
     ob_start("return_callback");
-?>

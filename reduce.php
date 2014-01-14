@@ -62,4 +62,3 @@
     $xml_writer->make_xml($xml_data);  
         
     http_response($HTTP_CODE['SUCCESS']);
-?>

@@ -134,7 +134,7 @@
         
         public static function compute_ad_id($params) {
             //self::$logger->Debug("Compute ad id."); 
-            $ad_id = 1;
+            $ad_id = 5;
             
             return $ad_id;
         }
@@ -169,4 +169,3 @@
     };
     
     Util::initialize();
-?>
